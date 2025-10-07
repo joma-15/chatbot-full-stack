@@ -1,9 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, request, render_template
+from .controllers import ai_chat
 
 main = Blueprint('main', __name__)
 
-@main.route("/")
+@main.route("/", methods=['POST', 'GET'])
 def home(): 
-    while True: 
-        something = input('enter something here : ')
-        return f'you enter {something}'
+    res= request.form.get("text") or "dont respond one time"
+    return render_template('index.html', chat=ai_chat(res))
+    
