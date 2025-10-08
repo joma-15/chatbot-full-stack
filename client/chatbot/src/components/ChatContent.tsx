@@ -30,7 +30,7 @@ export function AiChat() {
   );
 }
 
-export function UserChat() {
+export function UserChat({userMessage} : {userMessage : string}) {
   return (
     <>
       <div className="flex gap-3 text-gray-600 text-sm">
@@ -50,7 +50,8 @@ export function UserChat() {
           </div>
         </span>
         <p className="leading-relaxed">
-          <span className="block font-bold text-gray-700">You </span>fewafef
+          <span className="block font-bold text-gray-700">You</span>
+          <span>{userMessage}</span>
         </p>
       </div>
     </>

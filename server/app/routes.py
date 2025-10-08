@@ -5,6 +5,10 @@ main = Blueprint('main', __name__)
 
 @main.route("/", methods=['POST', 'GET'])
 def home(): 
-    res= request.form.get("text") or "dont respond one time"
-    return render_template('index.html', chat=ai_chat(res))
+    response = request.form.get('user-message')
+    ai = ""
+
+    if response and response.strip(): #check if there is a response available
+        ai = ai_chat(response)
+    return render_template('index.html', chat=ai)
     
