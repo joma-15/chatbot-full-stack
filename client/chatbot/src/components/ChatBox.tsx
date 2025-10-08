@@ -20,6 +20,8 @@ export function ChatBox() {
           <AiChat />
           <UserChat />
           <AiChat />
+          <UserChat/>
+          <AiChat/>
         </div>
 
         {/* Input */}
