@@ -1,4 +1,8 @@
-export function AiChat() {
+type AiChatProps = {
+  reply : string;
+}
+
+export function AiChat({reply} : AiChatProps) {
   return (
     <>
       <div className="flex gap-3 text-gray-600 text-sm">
@@ -22,15 +26,14 @@ export function AiChat() {
           </div>
         </span>
         <p className="leading-relaxed">
-          <span className="block font-bold text-gray-700">AI </span>Hi, how can
-          I help you today?
+          <span className="block font-bold text-gray-700">AI </span>{reply}
         </p>
       </div>
     </>
   );
 }
 
-export function UserChat({userMessage} : {userMessage : string}) {
+export function UserChat() {
   return (
     <>
       <div className="flex gap-3 text-gray-600 text-sm">
@@ -51,7 +54,7 @@ export function UserChat({userMessage} : {userMessage : string}) {
         </span>
         <p className="leading-relaxed">
           <span className="block font-bold text-gray-700">You</span>
-          <span>{userMessage}</span>
+          <span>hello</span>
         </p>
       </div>
     </>

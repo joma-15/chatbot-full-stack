@@ -1,23 +1,24 @@
 import axios from "axios";
-import { UserChat } from "./ChatContent";
-import { useState,useRef } from "react";
+import { useRef } from "react";
 
 
 export function MessageSender() {
   const messageRef = useRef<HTMLInputElement>(null);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
   const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const userMessage = messageRef.current?.value || "";
-    setMessage(userMessage);
+    // setMessage(userMessage);
 
     try {
-      const response = await axios.post('/', {
-        userMessage
+      const response = await axios.post('http://127.0.0.1:5000/', {
+        message: userMessage
       })
-      console.log(response.data.message)
+      const ai = response.data.reply;
+      localStorage.setItem("reply",ai);
+      
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('an error has been occured while sending the data in axios')
@@ -39,10 +40,9 @@ export function MessageSender() {
             name="user-message"
           />
           <button
-            type="button"
+            type="submit"
             className="inline-flex items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2"
             id="sendBtn"
-            onClick={() => <UserChat userMessage={message}/>}
           >
             Send
           </button>
