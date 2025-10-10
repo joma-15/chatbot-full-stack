@@ -1,29 +1,17 @@
 import { ChatHeader } from "./ChatHeader";
 import { MessageSender } from "./MessageSender";
-import { AiChat } from "./ChatContent";
-import { useState, useEffect, use } from "react";
+import { AiChat, UserChat } from "./ChatContent";
 
 export function ChatBox() {
-  //grap ai response from the local storage
-  const [messages, setMessages] = useState(() => {
-    const saved = localStorage.getItem("reply"); 
-    return saved ? JSON.parse(saved): [];
-  });
+  // useEffect(() => {
+  //   const handleStorage = () => {
+  //     const updated = localStorage.getItem("reply"); 
+  //     console.log(updated);
+  //   }; 
+  //   window.addEventListener('localStorageUpdate', handleStorage); 
+  //   return () => window.removeEventListener('localStorageUpdate', handleStorage);
+  // },[]); 
 
-  useEffect(() => {
-    localStorage.setItem("reply", JSON.stringify(messages))
-  },[messages]);
-  
-  const[newMessage, setNewMessage] = useState("");
-  const setMessage = () => {
-    const reply = JSON.parse(localStorage.getItem("reply") || ""); 
-
-    reply.array.forEach((message: string) => {
-      setNewMessage(message)
-    });
-    setMessage();
-    
-  }
   return (
     <>
       {/* Chat window */}
@@ -38,7 +26,8 @@ export function ChatBox() {
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          
+          <UserChat/>
+          <AiChat/>
         </div>
 
         {/* Input */}

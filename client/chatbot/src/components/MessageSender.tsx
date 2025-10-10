@@ -18,6 +18,9 @@ export function MessageSender() {
       })
       const ai = response.data.reply;
       localStorage.setItem("reply",ai);
+
+      //create a custom dispatch even 
+      window.dispatchEvent(new Event("localStorageUpdate"));
       
     } catch (error) {
       if (axios.isAxiosError(error)) {
