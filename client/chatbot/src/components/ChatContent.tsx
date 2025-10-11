@@ -3,12 +3,12 @@
 
 import { useEffect, useState } from "react";
 
-export function AiChat() {
+function grabMessage(item: string){
   const [message, setMessage] = useState<string[]>([]);
 
   useEffect(() => {
     const handleClick = () => {
-      const saved = localStorage.getItem("reply");
+      const saved = localStorage.getItem(item);
       if (saved !== null) {
         setMessage((prev) => [...prev, saved]);
       }
@@ -17,6 +17,26 @@ export function AiChat() {
     window.addEventListener("localStorageUpdate", handleClick);
     return () => window.removeEventListener("localStorageUpdate", handleClick);
   }, []);
+  return message;
+}
+
+
+export function AiChat() {
+  // const [message, setMessage] = useState<string[]>([]);
+  const message = grabMessage("reply");
+
+  // // useEffect(() => {
+  // //   const handleClick = () => {
+  // //     const saved = localStorage.getItem("reply");
+  // //     if (saved !== null) {
+  // //       setMessage((prev) => [...prev, saved]);
+  // //     }
+  // //     console.log(saved);
+  // //   };
+  // //   window.addEventListener("localStorageUpdate", handleClick);
+  // //   return () => window.removeEventListener("localStorageUpdate", handleClick);
+  // // }, []);
+
 
   return (
     <>

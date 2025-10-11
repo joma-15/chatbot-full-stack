@@ -18,6 +18,7 @@ export function MessageSender() {
       })
       const ai = response.data.reply;
       localStorage.setItem("reply",ai);
+      localStorage.setItem("message", userMessage);
 
       //create a custom dispatch even 
       window.dispatchEvent(new Event("localStorageUpdate"));
