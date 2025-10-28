@@ -1,23 +1,28 @@
-import { useState, useEffect } from "react";
 import { ChatHeader } from "./ChatHeader";
 import { MessageSender } from "./MessageSender";
 import { UserChat, AiChat } from "./ChatContent";
+import { useEffect, useState } from "react";
 
 export function ChatBox() {
-  const [userVisible, setUserVisible] = useState(false);
-  const [aiVisible, setAiVisible] = useState(false);
+  const [Show, setShow] = useState<boolean>(false);
 
   useEffect(() => {
-    // 1️⃣ Show user message immediately
-    setUserVisible(true);
+    const handleMessageUpdate = () => {
+      setShow(false); // reset visibility when new message arrives
 
-    // 2️⃣ Show AI message after 2 seconds
-    const timer = setTimeout(() => {
-      setAiVisible(true);
-    }, 5000);
+      // wait 10 seconds before showing AiChat again
+      const timer = setTimeout(() => {
+        setShow(true);
+      }, 3000);
 
-    // Cleanup on unmount
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    };
+
+    // listen for the same custom event from your grabMessage() logic
+    window.addEventListener("localStorageUpdate", handleMessageUpdate);
+
+    // cleanup
+    return () => window.removeEventListener("localStorageUpdate", handleMessageUpdate);
   }, []);
 
   return (
@@ -31,8 +36,8 @@ export function ChatBox() {
 
       {/* Messages section */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        <UserChat visible={userVisible} />
-        <AiChat visible={aiVisible} />
+        <UserChat visible={true} />
+        <AiChat visible={Show} />
       </div>
 
       <MessageSender />
