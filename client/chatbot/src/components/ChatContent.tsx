@@ -20,7 +20,7 @@ function grabMessage(item: string) {
 export function AiChat({ visible }: { visible: boolean }) {
   const message = grabMessage("reply");
 
-  if (visible) {
+  if (visible) {//add comment
     return (
       <>
         {message.map((value) => (
